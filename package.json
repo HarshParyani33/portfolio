@@ -1,9 +1,11 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "harsh-paryani-portfolio",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Portfolio of Harsh Paryani",
+  "author": "Harsh Paryani <harshparyani68@gmail.com>",
   "type": "module",
-  "scripts": {
+    "scripts": {
     "build": "vite build",
     "dev": "vite"
   },

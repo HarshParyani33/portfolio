@@ -847,7 +847,9 @@ function ContactSection() {
       toast.error("Please fill in all required fields.");
       return;
     }
+    
     setSending(true);
+    
     const subject = `Opportunity for Harsh Paryani${form.company ? ` — ${form.company}` : ""}`;
     const body = [
       `Hi Harsh,`,
@@ -860,15 +862,20 @@ function ContactSection() {
       `${form.name}`,
       `${form.email}`,
     ].join("\n");
-    window.location.href = `mailto:harshparyani68@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Reroute to Gmail Web Client instead of default mail app
+    const targetEmail = "harshparyani68@gmail.com";
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${targetEmail}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank');
+    
     setTimeout(() => {
       setSending(false);
-      toast.success("Email client opened! Your message is ready to send.", {
+      toast.success("Gmail opened! Your message is ready to send.", {
         description: "If it didn't open, email directly at harshparyani68@gmail.com",
       });
       setForm({ name: "", email: "", company: "", message: "" });
     }, 800);
-  };
+};
 
   return (
     <section id="contact" style={{ padding: "112px 0", background: isDark ? "#000" : "#fff" }}>
@@ -905,8 +912,8 @@ function ContactSection() {
                   {[
                     { icon: Mail, label: "Email", val: "harshparyani68@gmail.com", href: "mailto:harshparyani68@gmail.com" },
                     { icon: Phone, label: "Phone", val: "+91 88493 15494", href: "tel:+918849315494" },
-                    { icon: Linkedin, label: "LinkedIn", val: "linkedin.com/in/harshparyani", href: "https://linkedin.com/in/harshparyani" },
-                    { icon: Github, label: "GitHub", val: "github.com/harshparyani", href: "https://github.com/harshparyani" },
+                    { icon: Linkedin, label: "LinkedIn", val: "linkedin.com/in/harsh-paryani", href: "https://www.linkedin.com/in/harsh-paryani/" },
+                    { icon: Github, label: "GitHub", val: "github.com/HarshParyani33", href: "https://github.com/HarshParyani33" },
                   ].map(({ icon: Icon, label, val, href }) => (
                     <a
                       key={label}
@@ -1121,6 +1128,20 @@ function Nav({ toggleTheme }: { toggleTheme: () => void }) {
 
 // ─── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
+  const handleResumeAction = () => {
+    const resumeUrl = "/Harsh_Paryani_Resume_11-07 (1).pdf";
+    
+    // 1. Pop open in a new tab
+    window.open(resumeUrl, '_blank');
+    
+    // 2. Trigger the download automatically
+    const link = document.createElement('a');
+    link.href = resumeUrl;
+    link.download = "Harsh_Paryani_Resume.pdf"; // Clean name for the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   const [isDark, setIsDark] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
@@ -1149,8 +1170,8 @@ export default function App() {
       description: "AI Powered Interview Buddy",
       details: "Resume-driven Q&A, voice responses, text-to-speech, and real-time AI feedback. Architected and shipped solo in 36 hours at Summer of CodeFest '25 — won 1st place out of 150+ teams.",
       techs: ["React", "Tailwind CSS", "Node.js", "Gemini API", "Deepgram API"],
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: "https://verqai.vercel.app/",
+      githubUrl: "https://github.com/The-Codesmokers/verq",
       gradient: "bg-gradient-to-br from-cyan-950/90 via-blue-950/70 to-black",
       badge: "1st Place",
     },
@@ -1159,7 +1180,7 @@ export default function App() {
       description: "Real-Time Competitive Coding Platform",
       details: "PvP logic with ELO rating system, Judge0 API for multi-language code execution, Monaco Editor integration, and optimized full-stack architecture for sub-100ms sync latency.",
       techs: ["MERN Stack", "Mongoose", "Node.js", "Judge0 API", "Monaco Editor"],
-      githubUrl: "#",
+      githubUrl: "https://github.com/smriti-02/CodeRush",
       gradient: "bg-gradient-to-br from-purple-950/90 via-violet-950/70 to-black",
     },
   ];
@@ -1176,19 +1197,19 @@ export default function App() {
       title: "Meta Front-End Developer Professional Certificate",
       issuer: "Meta",
       platform: "Coursera",
-      year: "2023",
+      year: "2025",
       accentColor: "#0082FB",
       letter: "M",
-      verifyUrl: "https://coursera.org",
+      verifyUrl: "https://coursera.org/share/4031bf7427d7cf0a4bac724b1d0e7453",
     },
     {
       title: "Bits and Bytes of Computer Networking",
       issuer: "Google",
       platform: "Coursera",
-      year: "2023",
+      year: "2025",
       accentColor: "#4285F4",
       letter: "G",
-      verifyUrl: "https://coursera.org",
+      verifyUrl: "https://coursera.org/share/def54eb1cfa14bb06faaeb20bd13f284",
     },
   ];
 
@@ -1254,10 +1275,26 @@ export default function App() {
                   style={{ gap: 8, padding: "13px 26px", borderRadius: 12, background: CYAN, color: "#000", fontFamily: "var(--font-family-mono)", fontSize: 14, fontWeight: 700 }}>
                   Deployments / Projects
                 </MagBtn>
-                <MagBtn href="#"
-                  style={{ gap: 8, padding: "13px 26px", borderRadius: 12, border: `1px solid ${isDark ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.18)"}`, color: fg, fontFamily: "var(--font-family-mono)", fontSize: 14 }}>
-                  View Resume ↗
-                </MagBtn>
+                <MagBtn 
+  onClick={(e) => {
+    e.preventDefault();
+    const resumeUrl = "/Harsh_Paryani_Resume_11-07 (1).pdf";
+    
+    // 1. Open in new tab
+    window.open(resumeUrl, '_blank');
+    
+    // 2. Trigger download
+    const link = document.createElement('a');
+    link.href = resumeUrl;
+    link.download = "Harsh_Paryani_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }}
+  style={{ gap: 8, padding: "13px 26px", borderRadius: 12, border: `1px solid ${isDark ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.18)"}`, color: fg, fontFamily: "var(--font-family-mono)", fontSize: 14 }}
+>
+  View & Download Resume ↗
+</MagBtn>
               </div>
             </motion.div>
             <motion.div
@@ -1331,8 +1368,8 @@ export default function App() {
               <SpotCard className="rounded-2xl p-7" style={{ background: cardBg, border: `1px solid ${cardBorder}` }}>
                 <h4 style={{ fontFamily: "var(--font-family-mono)", fontSize: 11, color: muted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 24 }}>Live Metrics</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }} className="max-sm:grid-cols-2">
-                  <Counter end={847} label="GitHub Commits" suffix="+" />
-                  <Counter end={12} label="Projects Built" />
+                  <Counter end={300} label="GitHub Commits" suffix="+" />
+                  <Counter end={3} label="Projects Built" suffix ="+" />
                   <Counter end={32000} label="Lines of Code" suffix="+" />
                   <Counter end={2} label="Hackathons Won" />
                 </div>
@@ -1427,7 +1464,7 @@ export default function App() {
             <div>
               <h5 style={{ fontFamily: "var(--font-family-mono)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: muted, marginBottom: 18 }}>Connect</h5>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {[{ href: "https://linkedin.com/in/harshparyani", Icon: Linkedin, label: "linkedin.com/in/harshparyani" }, { href: "https://github.com/harshparyani", Icon: Github, label: "github.com/harshparyani" }].map(({ href, Icon, label }) => (
+                {[{ href: "https://linkedin.com/in/harsh-paryani", Icon: Linkedin, label: "linkedin.com/in/harsh-paryani" }, { href: "https://github.com/HarshParyani33", Icon: Github, label: "github.com/HarshParyani33" }].map(({ href, Icon, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                     style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: muted, textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = CYAN; }}
