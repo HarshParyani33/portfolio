@@ -1370,8 +1370,8 @@ export default function App() {
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }} className="max-sm:grid-cols-2">
                   <Counter end={300} label="GitHub Commits" suffix="+" />
                   <Counter end={3} label="Projects Built" suffix ="+" />
-                  <Counter end={32000} label="Lines of Code" suffix="+" />
-                  <Counter end={2} label="Hackathons Won" />
+                  <Counter end={5000} label="Lines of Code" suffix="+" />
+                  <Counter end={1} label="Hackathons Won" />
                 </div>
               </SpotCard>
             </Reveal>
